@@ -64,4 +64,18 @@ Cons
 - can't say what the application does
 - hard to support large application
 
+* Group by function ("Layered architecture")
+/
+|--- *handlers*
+|------ middleware.go
+|------ product.go
+|--- *models*
+|------ product.go
+|------ query_param.go
+|------ storage.go
+|--- *storage*
+|------ elastic.go
+|--- main.go
+
+
 
