@@ -1,0 +1,67 @@
+How to structure Go application?
+15:04 21 Jan 2019
+
+Valentyn Kremeshnyi
+Software Engineer, SoftServe
+
+* Use Frameworks
+
+Pros
+
+- predefined structure
+- logging, metrix, tracing, middlewares etc... from the box
+- concentrate on business logic
+- switch between project based on the same framework
+
+Cons
+
+- general solution for specific problems
+- takes time to learn and become master
+- hard to modify core behavior
+
+* Create own structure
+
+Questions, decisions
+
+- What if I put everything in the main package?
+- What if I use structure from programming language that I already know?
+- How do I decide if something should be in its own package?
+- What is the Go way of structuring your application?
+- What should I share between packages?
+- Probably I should come back to some framework and it is still a good idea?
+
+* A product search service for e-commerce platform
+
+- Lets image we have e-commerce platform with selling fashion products
+- Each product has title, brand, price and stock
+- The platform should have search functionality
+- We can apply different filters e.g. https://example.com/products?q=black shoes&filter=brand:brand_name
+- Store our data in elasticsearch
+
+* Flat structure
+
+/
+|--- elastic.go
+|--- handlers.go
+|--- main.go
+|--- middleware.go
+|--- model.go
+|--- query_param.go
+|--- storage.go
+
+* Flat structure
+
+Pros
+
+- easy to read and maintain
+- good structure if you don't know where to start
+- not complicated
+- no circle dependencies
+
+Cons
+
+- you can modify everything (use only one package)
+- can't say what the application does
+- hard to support large application
+
+
