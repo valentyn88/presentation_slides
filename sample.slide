@@ -77,5 +77,69 @@ Cons
 |------ elastic.go
 |--- main.go
 
+* Group by function ("Layered architecture")
+
+Pros
+
+- easy to decide where everything goes
+- relevant things to the same package
+
+Cons
+
+- where to put common const?
+- don't give you exact answer what this application does
+
+* Group by module
+/
+|--- *product*
+|------ product.go
+|------ query_param.go
+|------ handler.go
+|------ middleware.go
+|--- *storage*
+|------ elastic.go
+|------ storage.go
+|--- main.go
+
+* Group by module
+
+Pros
+
+- everything grouped logically
+
+Cons
+
+- naming
+- circular dependency
+
+* Group by context (Domain Driver Development, Adapter)
+
+*Entity* (Product) - abstract instance
+*Value* *Object* - can be part of entity, similar to property
+*Domain* *Event* (Product not found, Product exists) - errors, acknowledgment, etc...
+*Aggregate* (ProductOrder) - combine different entities
+*Service* (ProductSearcher) - responsibility of entity
+*Repository* (ElasticService) - real implementation of service
+
+* Group by context
+
+Pros
+
+- clear structure
+- easy to read and understand
+- no circular dependency
+
+Cons
+
+- need time to get used
+
+* Best practices for organizing Go packages
+
+- use two root directories: *cmd* (for binaries), *pkg* (for all packages)
+- use *mock* package as shared subpackage
+- *main* packages connect together dependencies
+- package should contains code that has a single purpose
+- package organization - libraries (parent - interface, children - subpackages)
+- package name - small word, that describes purpose
 
 
