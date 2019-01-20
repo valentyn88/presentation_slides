@@ -4,6 +4,20 @@ How to structure Go application?
 Valentyn Kremeshnyi
 Software Engineer, SoftServe
 
+* Problems
+- How should I structure my Go application?
+- What authors of Golang tell about structuring your application?
+
+* Use Frameworks
+- Revel
+- Beego
+- Martini
+- Go-kit
+- Gin Gonic
+- Buffalo
+- etc...
+
+
 * Use Frameworks
 
 Pros
@@ -21,6 +35,10 @@ Cons
 
 * Create own structure
 
+It won't be a big deal for me to create my own structure
+
+* Create own structure
+
 Questions, decisions
 
 - What if I put everything in the main package?
@@ -29,6 +47,10 @@ Questions, decisions
 - What is the Go way of structuring your application?
 - What should I share between packages?
 - Probably I should come back to some framework and it is still a good idea?
+
+* Let's create a new task where we can apply all our knowledge
+
+It should be something related to the real world
 
 * A product search service for e-commerce platform
 
@@ -39,6 +61,12 @@ Questions, decisions
 - Store our data in elasticsearch
 
 * Flat structure
+
+The first thing that comes to my mind is Flat structure
+
+* Step 1
+
+*Flat* *structure*
 
 /
 |--- elastic.go
@@ -65,6 +93,12 @@ Cons
 - hard to support large application
 
 * Group by function ("Layered architecture")
+
+I can apply knowledge from some other programming language that I already know
+
+* Step 2
+
+*Group* *by* *function* *("Layered* *architecture")*
 /
 |--- *handlers*
 |------ middleware.go
@@ -83,6 +117,7 @@ Pros
 
 - easy to decide where everything goes
 - relevant things to the same package
+- similar to the structure that you already know
 
 Cons
 
@@ -90,6 +125,12 @@ Cons
 - don't give you exact answer what this application does
 
 * Group by module
+
+What if I divide everything by little modules?
+
+* Step 3
+
+*Group* *by* *module*
 /
 |--- *product*
 |------ product.go
@@ -106,6 +147,7 @@ Cons
 Pros
 
 - everything grouped logically
+- easy to find necessary information
 
 Cons
 
@@ -114,12 +156,33 @@ Cons
 
 * Group by context (Domain Driver Development, Adapter)
 
+What if apply DDD?
+
+* Step4
+
+*Group* *by* *context* *(Domain* *Driver* *Development,* *Adapter)*
+
 *Entity* (Product) - abstract instance
 *Value* *Object* - can be part of entity, similar to property
 *Domain* *Event* (Product not found, Product exists) - errors, acknowledgment, etc...
 *Aggregate* (ProductOrder) - combine different entities
-*Service* (ProductSearcher) - responsibility of entity
+*Service* (ProductSearcher) - responsibility of entity, business logic
 *Repository* (ElasticService) - real implementation of service
+
+* Group by context
+/
+|--- *cmd*
+|------ *search_server*
+|--------- main.go
+|--- *pkg*
+|------ *http*
+|--------- handler.go
+|--------- middleware.go
+|------ *elastic*
+|--------- search_service.go
+|--- product.go
+|--- product_service.go
+|--- query_param.go
 
 * Group by context
 
@@ -132,6 +195,7 @@ Pros
 Cons
 
 - need time to get used
+- no reason to use for a few domains
 
 * Best practices for organizing Go packages
 
@@ -139,7 +203,24 @@ Cons
 - use *mock* package as shared subpackage
 - *main* packages connect together dependencies
 - package should contains code that has a single purpose
-- package organization - libraries (parent - interface, children - subpackages)
+- package organization - libraries (parent - interface, children - subpackages, good example package encoding)
 - package name - small word, that describes purpose
+
+* Conclusion
+
+- begin with *Flat* *structure* if you have no idea from what to start
+- use *Group* *by* *function* is you build a more complex solution
+- use *Group* *by* *module* if you can divide on independent modules
+- use *Domain* *driven* *development* if you want to split your business logic and work with storage
+
+* Links
+
+- [[https://github.com/valentyn88/presentation]]
+- [[https://github.com/valentyn88/presentation_slides]]
+- [[https://www.youtube.com/watch?v=MzTcsI6tn-0&feature=youtu.be][Brian Ketelsen. Go best practices.]]
+- [[https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1][Standard Package Layout]]
+- [[https://www.youtube.com/watch?v=oL6JBUk6tj0][Kat Zien - How Do You Structure Your Go Apps]]
+- [[https://www.youtube.com/watch?v=twcDf_Y2gXY][Marcus Olsson - Building an enterprise service in Go]]
+- [[https://www.youtube.com/watch?v=6SBjKOwVq0o][Chris Fidao - Hexagonal Architecture]]
 
 
