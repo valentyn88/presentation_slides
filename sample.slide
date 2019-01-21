@@ -1,4 +1,4 @@
-Tips & tricks of structuring Go applications?
+Tips & tricks of structuring Go applications
 15:04 21 Jan 2019
 
 Valentyn Kremeshnyi
@@ -156,7 +156,7 @@ Cons
 
 * Group by context (Domain Driver Development, Adapter)
 
-What if apply DDD?
+What if I would apply DDD?
 
 * Step4
 
